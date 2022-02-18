@@ -1,0 +1,55 @@
+.chat {
+  .message {
+    text-align: left;
+    &_right:hover {
+      color: blue;
+      opacity: 0.8;
+      .sender ._time {
+        visibility: visible;
+      }
+    }
+    &_left:hover {
+      color: grey;
+      opacity: 0.8;
+      .sender ._time {
+        visibility: visible;
+      }
+    }
+    &_left {
+      text-align: left;
+      .sender {
+        font-size: smaller;
+        span {
+          margin: 0px 5px;
+        }
+        ._time {
+          padding-right: 5px;
+          visibility: hidden;
+        }
+      }
+      .content {
+        ._message {
+          padding: 0px 5px;
+        }
+      }
+    }
+    &_right {
+      text-align: right;
+      .sender {
+        font-size: smaller;
+        span {
+          margin: 0px 5px;
+        }
+        ._time {
+          padding-right: 5px;
+          visibility: hidden;
+        }
+      }
+      .content {
+        ._message {
+          padding: 0px 5px;
+        }
+      }
+    }
+  }
+}
