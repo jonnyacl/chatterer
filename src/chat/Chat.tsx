@@ -62,7 +62,7 @@ export const Chat = ({
           }
         }}
       />
-      <button onClick={onSubmit}>Send</button>
+      <button onClick={onSubmit}>Message</button>
     </div>
   );
 };

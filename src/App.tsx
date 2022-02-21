@@ -49,7 +49,10 @@ function App() {
   }, [chat, joiners]);
   return (
     <div className="App">
-      <header className="App-header">Chatterbox</header>
+      <header className="App-header">
+        <h2>Chatterbox</h2>
+        {myId && <div>{myId}</div>}
+      </header>
       {myId ? (
         <>
           <Chat chat={chat} client={client} myId={myId} />
@@ -71,7 +74,7 @@ function App() {
               setMyId(id);
             }}
           >
-            Set name
+            Sign in
           </button>
         </div>
       )}
