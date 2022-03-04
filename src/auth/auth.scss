@@ -1,0 +1,12 @@
+.signIn {
+  img {
+    &:hover {
+      cursor: pointer;
+    }
+    width: 200px;
+  }
+
+  .error {
+    color: red;
+  }
+}
