@@ -14,16 +14,21 @@ export interface SignInResp {
   data: any;
 }
 
+export interface IUser extends User {
+  idToken: string;
+}
+
 export const useAuth = (callback?: (resp: SignInResp) => void) => {
-  const [user, setUser] = useState<User | null>(getAuth().currentUser);
+  const [user, setUser] = useState<IUser | null>(null);
   const [fetchedSession, setFetchedSession] = useState<boolean>(false);
   useEffect(() => {
     setTimeout(() => setFetchedSession(true), 500);
   }, []);
   useEffect(() => {
-    getAuth().onAuthStateChanged((authUser: User | null) => {
+    getAuth().onAuthStateChanged(async (authUser: User | null) => {
       if (authUser) {
-        setUser(authUser);
+        const idToken = await authUser.getIdToken();
+        setUser({ ...authUser, idToken });
       }
     });
   }, []);
@@ -31,9 +36,10 @@ export const useAuth = (callback?: (resp: SignInResp) => void) => {
   const signIn = () => {
     const auth = getAuth();
     signInWithPopup(auth, provider)
-      .then((result) => {
+      .then(async (result) => {
         const signedInUser = result.user;
-        setUser(signedInUser);
+        const idToken = await signedInUser.getIdToken();
+        setUser({ ...signedInUser, idToken });
       })
       .catch((error) => {
         // Handle Errors here.

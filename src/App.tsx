@@ -5,6 +5,9 @@ import { Chat, IChat } from "./chat/Chat";
 import { Joiners, IJoiner } from "./joiners/Joiners";
 import { SignIn } from "./auth/SignIn";
 import { useAuth } from "./auth/useAuth";
+import { config } from "./config";
+
+console.log("ENV", process.env.NODE_ENV);
 
 function App() {
   const [chat, setChat] = useState<IChat[]>([]);
@@ -13,7 +16,9 @@ function App() {
   const { user, signOut, fetchedSession } = useAuth();
   useEffect(() => {
     if (user && !client) {
-      setClient(new w3cwebsocket("ws://localhost:5009/chat"));
+      setClient(
+        new w3cwebsocket(`ws://${config.api}/chat?access_token=${user.idToken}`)
+      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
