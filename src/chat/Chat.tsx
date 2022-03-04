@@ -6,6 +6,7 @@ export interface IChat {
   senderId: string;
   timestamp: string;
   message: string;
+  name: string;
 }
 
 export const Chat = ({
@@ -14,12 +15,12 @@ export const Chat = ({
   myId,
 }: {
   chat: IChat[];
-  client: w3cwebsocket;
+  client?: w3cwebsocket;
   myId: string;
 }) => {
   const [message, setMessage] = useState<string>("");
   const onSubmit = () => {
-    if (message) {
+    if (message && client) {
       client.send(JSON.stringify({ message, userId: myId, event: "CHAT" }));
       setMessage("");
     }
@@ -39,7 +40,7 @@ export const Chat = ({
                 </span>
               )}
               <span style={c.senderId === myId ? { color: "blue" } : {}}>
-                <b>{c.senderId}</b>
+                <b>{c.name}</b>
               </span>
               {c.senderId !== myId && (
                 <span className="_time">
